@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<link rel="stylesheet" href="./static/css/styles.css">
+
+{% block content %}
+    <section class="todo-app">
+        <form action="/add" method="POST">
+            <input type="text" name="title" placeholder="Add a new task" required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <ul class="task-list">
+            {% for task in tasks %}
+                <li class="{% if task.complete %}completed{% endif %}">
+                    {{ task.title }}
+                    <a href="/update/{{ task.id }}">[Mark as {{ 'Incomplete' if task.complete else 'Complete' }}]</a>
+                    <a href="/delete/{{ task.id }}">[Delete]</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}
